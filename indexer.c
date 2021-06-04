@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
 	const char* filein[argc];
-	const char* css;
+	const char* css = "";
 	int to = 0;
 	
 	/*
@@ -52,6 +52,11 @@ int main(int argc, char *argv[]) {
 		i++;
 	}
 
+	if (to == 1 && strcmp(css, "")) {
+		printf("fatal error: css file cannot be added to md output\n");
+		return 1;
+	}
+
 	switch(to) {
 		case 0:
 			printf(
@@ -65,6 +70,7 @@ int main(int argc, char *argv[]) {
 			      );
 			break;
 		case 1:
+			printf("# index\n\n");
 			break;
 	}
 
