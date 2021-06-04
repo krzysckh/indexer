@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
 					FILE *cssf;
 					cssf = fopen(css, "r");
 	
-					char c;
+					int c;
 	
 					while (c != EOF) {
 						printf("%c", c);
