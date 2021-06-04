@@ -2,7 +2,6 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-	const char* out;
 	const char* filein[argc];
 	const char* css;
 	int to = 0;
@@ -53,7 +52,43 @@ int main(int argc, char *argv[]) {
 		i++;
 	}
 
+	switch(to) {
+		case 0:
+			printf(
+					"<!DOCTYPE html>\n"
+					"<html>\n"
+					"<head>\n"
+					"<title> index </title>\n"
+					"</head>\n"
+					"<body>\n"
+					"<h1> index </h1>\n"
+			      );
+			break;
+		case 1:
+			break;
+	}
 
+	for (int i = 0; i < hf; i++) {
+		switch(to) {
+			case 0:
+				printf("<p> <a href=%s%s%s%s\n", filein[i], "> ", filein[i], " </a> </p>");
+				break;
+			case 1:
+				printf("[%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
+				break;
+		}
+	}
+
+	switch(to) {
+		case 0:
+			printf(
+					"</body>\n"
+					"</html>\n"
+			      );
+			break;
+		case 1:
+			break;
+	}
 		
 
 	return 0;
