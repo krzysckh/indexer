@@ -70,10 +70,12 @@ int main(int argc, char *argv[]) {
 					FILE *cssf;
 					cssf = fopen(css, "r");
 	
-					int c;
+					int c = 0;
 	
 					while (c != EOF) {
-						printf("%c", c);
+						if (c != 0) {
+							printf("%c", c);
+						}
 						c = fgetc(cssf);
 					}
 				}
