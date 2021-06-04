@@ -64,9 +64,25 @@ int main(int argc, char *argv[]) {
 					"<html>\n"
 					"<head>\n"
 					"<title> index </title>\n"
+					"<style>\n"
+			      );
+			if (strcmp(css, "")) {
+					FILE *cssf;
+					cssf = fopen(css, "r");
+	
+					char c;
+	
+					while (c != EOF) {
+						printf("%c", c);
+						c = fgetc(cssf);
+					}
+				}
+			printf(
+					"</style>\n"
 					"</head>\n"
 					"<body>\n"
 					"<h1> index </h1>\n"
+					"<ul>\n"
 			      );
 			break;
 		case 1:
@@ -77,7 +93,7 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < hf; i++) {
 		switch(to) {
 			case 0:
-				printf("<p> <a href=%s%s%s%s\n", filein[i], "> ", filein[i], " </a> </p>");
+				printf("<li> <a href=%s%s%s%s\n", filein[i], "> ", filein[i], " </a> </li>");
 				break;
 			case 1:
 				printf("[%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
@@ -88,6 +104,7 @@ int main(int argc, char *argv[]) {
 	switch(to) {
 		case 0:
 			printf(
+					"</ul>\n"
 					"</body>\n"
 					"</html>\n"
 			      );
