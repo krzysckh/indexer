@@ -12,11 +12,11 @@ sudo make install
 ## synopsis
 
 ```
-indexer \[--css\] \[-T\] \[--help\] files 
+indexer [--css\] [-T] [--help] files 
 ```
 e.g.
 ```
-indexer --css style.css -T html \*.txt > index.html
+indexer --css style.css -T html *.txt > index.html
 ```
 ## arguments
 ```
