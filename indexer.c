@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
+
+void checkIfDir(const char* name);
 
 int main(int argc, char *argv[]) {
 	const char* filein[argc];
@@ -95,7 +98,9 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < hf; i++) {
 		switch(to) {
 			case 0:
-				printf("<li> <a href=%s%s%s%s\n", filein[i], "> ", filein[i], " </a> </li>");
+				printf("<li> <a href=%s%s", filein[i], "> ");
+				checkIfDir(filein[i]);
+				printf("%s%s\n", filein[i], " </a> </li>");
 				break;
 			case 1:
 				printf("[%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
@@ -117,4 +122,14 @@ int main(int argc, char *argv[]) {
 		
 
 	return 0;
+}
+
+void checkIfDir(const char* name) {
+	struct stat path_stat;
+	stat(name, &path_stat);
+	if(S_ISREG(path_stat.st_mode) == 0) {
+		printf("📁 ");
+	} else {
+		printf("🗎 ");
+	}
 }
