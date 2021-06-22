@@ -103,7 +103,9 @@ int main(int argc, char *argv[]) {
 				printf("%s%s\n", filein[i], " </a> </li>");
 				break;
 			case 1:
-				printf("[%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
+				printf("[");
+				checkIfDir(filein[i]);
+				printf("%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
 				break;
 		}
 	}
