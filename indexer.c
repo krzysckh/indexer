@@ -67,6 +67,7 @@ int main(int argc, char *argv[]) {
 					"<html>\n"
 					"<head>\n"
 					"<title> index </title>\n"
+					"<meta charset=\"UTF-8\">\n"
 					"<style>\n"
 			      );
 			if (strcmp(css, "")) {
