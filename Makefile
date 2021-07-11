@@ -1,8 +1,10 @@
 instd=/usr/bin/
 mand=/usr/share/man/man1/
 
+CC=cc
+
 indexer:
-	cc -Wall indexer.c -o indexer
+	$(CC) -Wall indexer.c -o indexer
 
 clean:
 	rm indexer

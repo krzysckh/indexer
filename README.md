@@ -12,7 +12,7 @@ sudo make install
 ## synopsis
 
 ```
-indexer [--css\] [-T] [--help] files 
+indexer [--css file.css] [-T md/html] [--dir-emoji] [--file-emoji] [-d] [-f] files 
 ```
 e.g.
 ```
@@ -23,6 +23,10 @@ indexer --css style.css -T html *.txt > index.html
 --css file.css	-	add css stylesheet when using -T html
 
 -T md / html	-	specify output format
+
+--dir-emoji	-	sets string before a directory
+
+--file-emoji	-	sets string before a file
 
 --help		-	show help
 ```

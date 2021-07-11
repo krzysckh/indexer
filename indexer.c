@@ -4,6 +4,9 @@
 
 void checkIfDir(const char* name);
 
+char *file = "📝 ";
+char *dir = "📁 ";
+
 int main(int argc, char *argv[]) {
 	const char* filein[argc];
 	const char* css = "";
@@ -24,12 +27,20 @@ int main(int argc, char *argv[]) {
 				css = argv[i+1];
 				i++;
 			} else {
-				printf("fatal error while parsing arguments: expected argument after %s\n", argv[i]);
+				fprintf(stderr, "fatal error while parsing arguments: expected argument after %s\n", argv[i]);
 				return 1;
 			}
 		} else if (strcmp(argv[i], "--help") == 0) {
 			printf(
-					"indexer [--css] [--help] [-T md, html] dir/ file1 file2...\n"
+					"synopsis:\n"
+					"\tindexer [arguments] files\n"
+					"\n"
+					"flags:\n"
+					"\t--css file\t\t-\tadds a single css file\n"
+					"\t-T\t\t\t-\tsets output format. supported: md, html\n"
+					"\t-d / --dir-emoji str\t-\tsets an emoji/str for directories\n"
+					"\t-f / --file-emoji str\t-\tsets an emoji/str for files\n"
+					"\t--help\t\t\t-\tshows help end exits\n"
 			      );
 			return 0;
 		} else if (strcmp(argv[i], "-T") == 0) {
@@ -41,11 +52,27 @@ int main(int argc, char *argv[]) {
 					to = 0;
 					i++;
 				} else {
-					printf("fatal error while parsing arguments: invalid argument after %s\n", argv[i]);
+					fprintf(stderr, "fatal error while parsing arguments: invalid argument after %s\n", argv[i]);
 					return 1;
 				}
 			} else {
-				printf("fatal error while parsing arguments: expected argument after %s\n", argv[i]);
+				fprintf(stderr, "fatal error while parsing arguments: expected argument after %s\n", argv[i]);
+				return 1;
+			}
+		} else if (strcmp(argv[i], "--dir-emoji") == 0 || strcmp(argv[i], "-d") == 0) {
+			if (argv[i+1] != NULL) {
+				dir = argv[i+1];
+				i++;
+			} else {
+				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
+				return 1;
+			}
+		} else if (strcmp(argv[i], "--file-emoji") == 0 || strcmp(argv[i], "-f") == 0) {
+			if (argv[i+1] != NULL) {
+				file = argv[i+1];
+				i++;
+			} else {
+				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
 				return 1;
 			}
 		} else {
@@ -56,7 +83,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	if (to == 1 && strcmp(css, "")) {
-		printf("fatal error: css file cannot be added to md output\n");
+		fprintf(stderr, "fatal error: css file cannot be added to md output\n");
 		return 1;
 	}
 
@@ -131,8 +158,8 @@ void checkIfDir(const char* name) {
 	struct stat path_stat;
 	stat(name, &path_stat);
 	if(S_ISREG(path_stat.st_mode) == 0) {
-		printf("📁 ");
+		printf("%s", dir);
 	} else {
-		printf("🗎 ");
+		printf("%s", file);
 	}
 }

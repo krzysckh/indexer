@@ -1,17 +1,20 @@
-.\" generated with Ronn-NG/v0.9.1
-.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "INDEXER" "" "June 2021" ""
+.TH "INDEXER" "1"
 .SH "NAME"
 \fBindexer\fR \- basic program to index files (for websites or anything)
 .SH "SYNOPSIS"
-indexer [\-\-css] [\-T] [\-\-help] files
+indexer [arguments] files
 .P
 e\.g\.
 .P
-indexer \-\-css style\.css \-T html *\.txt > index\.html
+indexer \-\-css style\.css \-T html \-d "[dir] " \-f "[file] " *\.txt > index\.html
 .SH "ARGUMENTS"
-\-\-css file\.css	\-	add css stylesheet when using \-T html
+	\-\-css file			\-	adds a single css file
 .P
-\-T md / html	\-	specify output format
+	\-T					\-	sets output format. supported: md, html
 .P
-\-\-help		\-	show help
+	\-d / \-\-dir-emoji str	\-	sets an emoji/str for directories
+.P
+	\-f / \-\-file-emoji str	\-	sets an emoji/str for files
+.P
+	\-\-help				\-	shows help end exits
+.P
