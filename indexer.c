@@ -2,10 +2,17 @@
 #include <string.h>
 #include <sys/stat.h>
 
+typedef int bool;
+#define true 1
+#define false 0
+
 void checkIfDir(const char* name);
 
 char *file = "📝 ";
 char *dir = "📁 ";
+char *parentDir = "..";
+
+bool showParentDir = false;
 
 int main(int argc, char *argv[]) {
 	const char* filein[argc];
@@ -40,6 +47,8 @@ int main(int argc, char *argv[]) {
 					"\t-T\t\t\t-\tsets output format. supported: md, html\n"
 					"\t-d / --dir-emoji str\t-\tsets an emoji/str for directories\n"
 					"\t-f / --file-emoji str\t-\tsets an emoji/str for files\n"
+					"\t-p / --show-parent\t-\tshows \"..\"at the top of index (back to parent dir)\n"
+					"\t--parent-emoji str\t-\tsets an emoji/str for <back to parent dir>\n"
 					"\t--help\t\t\t-\tshows help end exits\n"
 			      );
 			return 0;
@@ -70,6 +79,16 @@ int main(int argc, char *argv[]) {
 		} else if (strcmp(argv[i], "--file-emoji") == 0 || strcmp(argv[i], "-f") == 0) {
 			if (argv[i+1] != NULL) {
 				file = argv[i+1];
+				i++;
+			} else {
+				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
+				return 1;
+			}
+		} else if (strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--show-parent") == 0) {
+			showParentDir = true;
+		} else if (strcmp(argv[i], "--parent-emoji") == 0) {
+			if (argv[i+1] != NULL) {
+				parentDir = argv[i+1];
 				i++;
 			} else {
 				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
@@ -123,10 +142,21 @@ int main(int argc, char *argv[]) {
 			break;
 	}
 
+	if (showParentDir) {
+		switch(to) {
+			case 0:
+				printf("<li> <a href=\"..\"> %s </a> </li>\n", parentDir);
+				break;
+			case 1:
+				printf("[%s](..)\n\n", parentDir);
+				break;
+		}
+	}
+
 	for (int i = 0; i < hf; i++) {
 		switch(to) {
 			case 0:
-				printf("<li> <a href=%s%s", filein[i], "> ");
+				printf("<li> <a href=\"%s%s\"", filein[i], "> ");
 				checkIfDir(filein[i]);
 				printf("%s%s\n", filein[i], " </a> </li>");
 				break;

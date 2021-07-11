@@ -28,5 +28,9 @@ indexer --css style.css -T html *.txt > index.html
 
 --file-emoji	-	sets string before a file
 
+--show-parent	-	shows ".." (or something else specified by --parent-emoji) at the top of index
+
+--parent-emoji	-	sets what to show as 'back to parent directory'
+
 --help		-	show help
 ```
