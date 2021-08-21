@@ -33,4 +33,8 @@ indexer --css style.css -T html *.txt > index.html
 --parent-emoji	-	sets what to show as 'back to parent directory'
 
 --help		-	show help
+
+-l		-	link css file
+
+-t		-	set title (defaults to "index")
 ```

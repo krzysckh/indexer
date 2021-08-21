@@ -15,8 +15,8 @@ char *parentDir = "..";
 bool showParentDir = false;
 
 int main(int argc, char *argv[]) {
-	const char* filein[argc];
-	const char* css = "";
+	const char *filein[argc];
+	const char *css = "", *linkcss = "", *title = "index";
 	int to = 0;
 	
 	/*
@@ -38,19 +38,7 @@ int main(int argc, char *argv[]) {
 				return 1;
 			}
 		} else if (strcmp(argv[i], "--help") == 0) {
-			printf(
-					"synopsis:\n"
-					"\tindexer [arguments] files\n"
-					"\n"
-					"flags:\n"
-					"\t--css file\t\t-\tadds a single css file\n"
-					"\t-T\t\t\t-\tsets output format. supported: md, html\n"
-					"\t-d / --dir-emoji str\t-\tsets an emoji/str for directories\n"
-					"\t-f / --file-emoji str\t-\tsets an emoji/str for files\n"
-					"\t-p / --show-parent\t-\tshows \"..\"at the top of index (back to parent dir)\n"
-					"\t--parent-emoji str\t-\tsets an emoji/str for <back to parent dir>\n"
-					"\t--help\t\t\t-\tshows help end exits\n"
-			      );
+			printf("indexer [arguments] <files>\n");
 			return 0;
 		} else if (strcmp(argv[i], "-T") == 0) {
 			if (argv[i+1] != NULL) {
@@ -94,6 +82,22 @@ int main(int argc, char *argv[]) {
 				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
 				return 1;
 			}
+		} else if (strcmp(argv[i], "-t") == 0) {
+			if (argv[i+1] != NULL) {
+				title = argv[i+1];
+				i++;
+			} else {
+				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
+				return 1;
+			}
+		} else if (strcmp(argv[i], "-l") == 0) {
+			if (argv[i+1] != NULL) {
+				linkcss = argv[i+1];
+				i++;
+			} else {
+				fprintf(stderr, "fatal error while parsing arguments: expected string after %s\n", argv[i]);
+				return 1;
+			}
 		} else {
 			filein[hf] = argv[i];
 			hf++;
@@ -112,9 +116,10 @@ int main(int argc, char *argv[]) {
 					"<!DOCTYPE html>\n"
 					"<html>\n"
 					"<head>\n"
-					"<title> index </title>\n"
+					"<title> %s </title>\n"
 					"<meta charset=\"UTF-8\">\n"
-					"<style>\n"
+					"<style>\n",
+					title
 			      );
 			if (strcmp(css, "")) {
 					FILE *cssf;
@@ -129,16 +134,20 @@ int main(int argc, char *argv[]) {
 						c = fgetc(cssf);
 					}
 				}
+			printf("</style>\n");
+			if (strcmp(linkcss, "")) {
+				printf("<link rel=\"stylesheet\" href=\"%s\">\n", linkcss);
+			}
 			printf(
-					"</style>\n"
 					"</head>\n"
 					"<body>\n"
-					"<h1> index </h1>\n"
-					"<ul>\n"
+					"<h1> %s </h1>\n"
+					"<ul>\n",
+					title
 			      );
 			break;
 		case 1:
-			printf("# index\n\n");
+			printf("# %s\n\n", title);
 			break;
 	}
 
