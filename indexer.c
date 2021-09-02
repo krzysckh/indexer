@@ -124,6 +124,10 @@ int main(int argc, char *argv[]) {
 			if (strcmp(css, "")) {
 					FILE *cssf;
 					cssf = fopen(css, "r");
+					if (cssf == NULL) {
+						fprintf(stdout, "file %s doesn't exist\n", css);
+						return 1;
+					}
 	
 					int c = 0;
 	
