@@ -185,9 +185,9 @@ int main(int argc, char *argv[]) {
 				printf("%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
 				break;
 			case 2:
-				printf("&%s[", filein[i]);
+				printf("\\- &%s[", filein[i]);
 				checkIfDir(filein[i]);
-				printf("%s]\n\n", filein[i]);
+				printf("%s]\n", filein[i]);
 				break;
 		}
 	}
