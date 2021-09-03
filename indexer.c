@@ -22,12 +22,14 @@ int main(int argc, char *argv[]) {
 	/*
 	 * to == 0 	-	html
 	 * to == 1	-	md
-	 *
+	 * to == 2	-	upup B)
 	 */
 
 	int hf = 0;
 
 	int i = 1;
+	/* wow that's a real bad piece of code to takie arguments from argv[]. really sorry for that */
+
 	while (i < argc) {
 	if (strcmp(argv[i], "--css") == 0) {
 			if (argv[i+1] != NULL) {
@@ -47,6 +49,9 @@ int main(int argc, char *argv[]) {
 					i++;
 				} else if (strcmp(argv[i+1], "html") == 0) {
 					to = 0;
+					i++;
+				} else if (strcmp(argv[i+1], "upup") == 0) {
+					to = 2;
 					i++;
 				} else {
 					fprintf(stderr, "fatal error while parsing arguments: invalid argument after %s\n", argv[i]);
@@ -105,11 +110,6 @@ int main(int argc, char *argv[]) {
 		i++;
 	}
 
-	if (to == 1 && strcmp(css, "")) {
-		fprintf(stderr, "fatal error: css file cannot be added to md output\n");
-		return 1;
-	}
-
 	switch(to) {
 		case 0:
 			printf(
@@ -153,6 +153,9 @@ int main(int argc, char *argv[]) {
 		case 1:
 			printf("# %s\n\n", title);
 			break;
+		case 2:
+			printf("+%s\n", title);
+			break;
 	}
 
 	if (showParentDir) {
@@ -162,6 +165,9 @@ int main(int argc, char *argv[]) {
 				break;
 			case 1:
 				printf("[%s](..)\n\n", parentDir);
+				break;
+			case 2:
+				printf("&..[%s]\n", parentDir);
 				break;
 		}
 	}
@@ -178,6 +184,11 @@ int main(int argc, char *argv[]) {
 				checkIfDir(filein[i]);
 				printf("%s%s%s%s\n\n", filein[i], "](", filein[i], ")");
 				break;
+			case 2:
+				printf("&%s[", filein[i]);
+				checkIfDir(filein[i]);
+				printf("%s]\n", filein[i]);
+				break;
 		}
 	}
 
@@ -190,6 +201,8 @@ int main(int argc, char *argv[]) {
 			      );
 			break;
 		case 1:
+			break;
+		case 2:
 			break;
 	}
 		

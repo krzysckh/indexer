@@ -1,18 +1,14 @@
-instd=/usr/bin/
-mand=/usr/share/man/man1/
-
-CC=cc
+CC=c99
+CFLAGS=-Wall -Wextra
+PREFIX=/usr
 
 indexer:
-	$(CC) -Wall indexer.c -o indexer
-
+	$(CC) indexer.c -o indexer $(CFLAGS)
 clean:
 	rm indexer
-
 install: indexer
-	cp indexer $(instd)
-	cp indexer.1 $(mand)
-
+	cp indexer $(PREFIX)/bin/indexer
+	cp indexer.1 $(PREFIX)/share/man/man1/indexer.1
 uninstall:
-	rm $(instd)indexer
-	rm $(mand)indexer.1
+	rm $(PREFIX)/bin/indexer
+	rm $(PREFIX)/share/man/man1/indexer.1
