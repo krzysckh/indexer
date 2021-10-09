@@ -4,7 +4,7 @@ PREFIX=/usr
 all: indexer
 clean:
 	rm indexer
-install: indexer
+install: all
 	cp indexer $(PREFIX)/bin/indexer
 	cp indexer.1 $(PREFIX)/share/man/man1/indexer.1
 uninstall:
