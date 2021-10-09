@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	for (int i = 0; i < hf; i++) {
+	for (i = 0; i < hf; i++) {
 		switch(to) {
 			case 0:
 				printf("<li> <a href=\"%s\"%s", filein[i], "> ");

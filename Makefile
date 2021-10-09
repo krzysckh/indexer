@@ -1,9 +1,7 @@
-CC=c99
-CFLAGS=-Wall -Wextra
+CFLAGS=-Wall -Wextra -std=c89
 PREFIX=/usr
 
-indexer:
-	$(CC) indexer.c -o indexer $(CFLAGS)
+all: indexer
 clean:
 	rm indexer
 install: indexer
